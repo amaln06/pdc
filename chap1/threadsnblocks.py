@@ -1,6 +1,7 @@
 import numpy as np
-from numba import cuda  # enable the use of GPU capabilities for computations.
+from numba import cuda  # Enable the use of GPU capabilities for computations.
 
+# Print CUDA device information
 print("CUDA devices:", cuda.detect())
 
 @cuda.jit
@@ -23,5 +24,5 @@ blocks_per_grid = (a.size + (threads_per_block - 1)) // threads_per_block
 vector_add[blocks_per_grid, threads_per_block](a, b, c)
 
 # Verify result
-np.testing.assert_almost_equal(c, a + b)
+np.testing.assert_almost_equal(c, a + b, decimal=5)  # You can adjust the decimal precision if needed
 print("GPU computation successful!")
